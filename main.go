@@ -9,9 +9,7 @@ import (
 func main() {
 	app := fiber.New()
 
-	api := app.Group("/v1")
-	v1 := api.Group("/api", handler)
-	v1.Get("list", handler)
+	app.Group("/v1", crm)
 
 	log.Fatal(app.Listen(":3000"))
 }
