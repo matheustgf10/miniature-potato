@@ -1,15 +1,13 @@
 package order
 
-import "github.com/google/uuid"
-
 type Order struct {
-	ID    *uuid.UUID `json:"id"`
-	Title *string    `json:"title"`
-	Type  *string    `json:"type"`
+	ID    *string `json:"id,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Type  *string `json:"type,omitempty"`
 }
 
 type ResOrder struct {
-	Data  []*Order `json:"data"`
-	Next  *bool    `json:"next"`
-	Total *int64   `json:"total"`
+	Data  []*Order `json:"data,omitempty"`
+	Next  *bool    `json:"next,omitempty"`
+	Total *int64   `json:"total,omitempty"`
 }

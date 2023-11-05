@@ -2,12 +2,10 @@ package crm
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/matheustgf10/miniature-potato/application/crm/order"
+	"github.com/matheustgf10/miniature-potato/interfaces/crm/order"
 )
 
 func Router(r fiber.Router) fiber.Router {
-	orderRoute := order.Router()
-	r.Group("/crm")
-
-	return r
+	orderRoutes := r.Group("/order")
+	return order.Router(orderRoutes)
 }
