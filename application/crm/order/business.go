@@ -1,6 +1,7 @@
 package order
 
 import (
+	"github.com/matheustgf10/miniature-potato/config/database"
 	"github.com/matheustgf10/miniature-potato/utils"
 )
 
@@ -18,11 +19,11 @@ func ListOrders() (res *ResOrder, err error) {
 }
 
 func AddOrder(order *Order) (err error) {
-	// tx, err := database.NewTransaction()
-	// if err != nil {
-	// 	return
-	// }
-	// tx.Rollback()
+	tx, err := database.NewTx()
+	if err != nil {
+		return
+	}
+	tx.Rollback()
 
 	print("tudo certo chama")
 

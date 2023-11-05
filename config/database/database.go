@@ -2,33 +2,60 @@ package database
 
 import (
 	"context"
-	database "database/sql"
+	"database/sql"
+	"fmt"
+	"log"
+	"os"
+	"time"
 )
 
-type DBTransaction struct {
-	DB *database.DB
-	TX *database.Tx
-}
+var DB *sql.DB
 
-func NewTransaction() (tx *DBTransaction, err error) {
-	if tx.DB, err = database.Open("postgre", "miniature-potato"); err != nil {
-		return
-	}
+func Open() {
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s",
+		os.Getenv("HOST"),
+		os.Getenv("PORT"),
+		os.Getenv("USER"),
+		os.Getenv("PASSWORD"),
+		os.Getenv("NAME"))
 
-	opts := new(database.TxOptions)
-	tx1, err := tx.DB.BeginTx(context.Background(), opts)
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
-		return
+		log.Fatalf("Could not connect the database: %s", err.Error())
+	}
+	err = db.Ping()
+	if err != nil {
+		log.Fatalf("Could not connect the database: %s", err.Error())
 	}
 
-	tx.TX = tx1
-	return
+	DB = db
+	log.Print("Database Connected")
 }
 
-func (tx *DBTransaction) Rollback() {
-	tx.TX.Rollback()
+func Close() {
+	if DB != nil {
+		_ = DB.Close()
+	}
 }
 
-func (tx *DBTransaction) Commit() {
-	tx.TX.Commit()
+func NewTx() (*sql.Tx, error) {
+	var (
+		tx  *sql.Tx
+		err error
+	)
+	ctx, cancel := context.WithCancel(context.Background())
+
+	go func() {
+		<-time.After(time.Duration(5) * time.Second)
+		if tx == nil {
+			cancel()
+		}
+	}()
+
+	tx, err = DB.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return tx, nil
 }
