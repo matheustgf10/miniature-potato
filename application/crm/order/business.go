@@ -23,14 +23,19 @@ func AddOrder(order *Order) (err error) {
 	if err != nil {
 		return
 	}
-	tx.Rollback()
+	defer tx.Rollback()
 
-	print("tudo certo chama")
+	print("// REGISTRAR NO BANCO DE DADOS")
+
+	if err = tx.Commit(); err != nil {
+		return
+	}
 
 	return
 }
 
 func UpdateOrder(order *Order) (err error) {
+
 	return
 }
 
