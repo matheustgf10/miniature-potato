@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-// !estrutura responsável por os erros//
+// !estrutura responsável por os erros
 type RestErr struct {
 	Message string   `json:"message,omitempty"`
 	Err     string   `json:"error,omitempty"`
@@ -12,19 +12,19 @@ type RestErr struct {
 	Causes  []Causes `json:"causes,omitempty"`
 }
 
-// !estrutura responsável pelo campo Causes//
+// !estrutura responsável pelo campo Causes
 type Causes struct {
 	Field   string `json:"field,omitempty"`
 	Message string `json:"message,omitempty"`
 }
 
-// !método que implementa a interface "error" retornando uma mensagem de erro, fazendo com que a//
-// !estrutura RestErr seja tratada como erro//
+// !método que implementa a interface "error" retornando uma mensagem de erro, fazendo com que a
+// !estrutura RestErr seja tratada como erro
 func (r *RestErr) Error() string {
 	return r.Message
 }
 
-// !função que cria uma instancia da estrutura RestErr//
+// !função que cria uma instancia da estrutura RestErr
 func NewRestErr(message, err string, code int64, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -32,10 +32,9 @@ func NewRestErr(message, err string, code int64, causes []Causes) *RestErr {
 		Code:    code,
 		Causes:  causes,
 	}
-
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func NewBadRequestError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -44,7 +43,7 @@ func NewBadRequestError(message string) *RestErr {
 	}
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func NewBadRequestValidationError(message string, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -52,10 +51,9 @@ func NewBadRequestValidationError(message string, causes []Causes) *RestErr {
 		Code:    http.StatusBadRequest,
 		Causes:  causes,
 	}
-
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func InternalServerError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -64,7 +62,7 @@ func InternalServerError(message string) *RestErr {
 	}
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func NotFoundError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -73,7 +71,7 @@ func NotFoundError(message string) *RestErr {
 	}
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func UnauthorizedError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -82,7 +80,7 @@ func UnauthorizedError(message string) *RestErr {
 	}
 }
 
-//! função que cria um erro expecífico//
+//! função que cria um erro expecífico
 
 func ForbiddenError(message string) *RestErr {
 	return &RestErr{
@@ -92,7 +90,7 @@ func ForbiddenError(message string) *RestErr {
 	}
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func ServiceUnavailableError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -101,7 +99,7 @@ func ServiceUnavailableError(message string) *RestErr {
 	}
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func GatewayTimeoutError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -110,7 +108,7 @@ func GatewayTimeoutError(message string) *RestErr {
 	}
 }
 
-// ! função que cria um erro expecífico//
+// ! função que cria um erro expecífico
 func TooManyRequests(message string) *RestErr {
 	return &RestErr{
 		Message: message,
