@@ -18,9 +18,8 @@ type Causes struct {
 	Message string `json:"message,omitempty"`
 }
 
-//!método que implementa a interface "error" retornando uma mensagem de erro, fazendo com que a//
-//!estrutura RestErr seja tratada como erro//
-
+// !método que implementa a interface "error" retornando uma mensagem de erro, fazendo com que a//
+// !estrutura RestErr seja tratada como erro//
 func (r *RestErr) Error() string {
 	return r.Message
 }
@@ -45,8 +44,7 @@ func NewBadRequestError(message string) *RestErr {
 	}
 }
 
-//! função que cria um erro expecífico//
-
+// ! função que cria um erro expecífico//
 func NewBadRequestValidationError(message string, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -57,8 +55,7 @@ func NewBadRequestValidationError(message string, causes []Causes) *RestErr {
 
 }
 
-//! função que cria um erro expecífico//
-
+// ! função que cria um erro expecífico//
 func InternalServerError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -67,8 +64,7 @@ func InternalServerError(message string) *RestErr {
 	}
 }
 
-//! função que cria um erro expecífico//
-
+// ! função que cria um erro expecífico//
 func NotFoundError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -77,8 +73,7 @@ func NotFoundError(message string) *RestErr {
 	}
 }
 
-//! função que cria um erro expecífico//
-
+// ! função que cria um erro expecífico//
 func UnauthorizedError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -97,8 +92,7 @@ func ForbiddenError(message string) *RestErr {
 	}
 }
 
-//! função que cria um erro expecífico//
-
+// ! função que cria um erro expecífico//
 func ServiceUnavailableError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -107,8 +101,7 @@ func ServiceUnavailableError(message string) *RestErr {
 	}
 }
 
-//! função que cria um erro expecífico//
-
+// ! função que cria um erro expecífico//
 func GatewayTimeoutError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
@@ -117,8 +110,7 @@ func GatewayTimeoutError(message string) *RestErr {
 	}
 }
 
-//! função que cria um erro expecífico//
-
+// ! função que cria um erro expecífico//
 func TooManyRequests(message string) *RestErr {
 	return &RestErr{
 		Message: message,
