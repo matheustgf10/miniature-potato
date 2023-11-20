@@ -5,19 +5,26 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 	"time"
 )
 
 var DB *sql.DB
 
 func Open() {
-	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s",
-		os.Getenv("HOST"),
-		os.Getenv("PORT"),
-		os.Getenv("USER"),
-		os.Getenv("PASSWORD"),
-		os.Getenv("NAME"))
+	var (
+		HOST     = "localhost"
+		PORT     = "5432"
+		USER     = "root"
+		PASSWORD = "1234@mudar"
+		DBNAME   = "postgres"
+	)
+
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		HOST,
+		PORT,
+		USER,
+		PASSWORD,
+		DBNAME)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {

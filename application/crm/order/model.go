@@ -1,9 +1,11 @@
 package order
 
+import "github.com/google/uuid"
+
 type Order struct {
-	ID    *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Type  *string `json:"type,omitempty"`
+	ID    *uuid.UUID `json:"id,omitempty"`
+	Title *string    `json:"title,omitempty"`
+	Type  *string    `json:"type,omitempty"`
 }
 
 type ResOrder struct {
